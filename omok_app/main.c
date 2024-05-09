@@ -3,7 +3,7 @@
 
 int main() {
     // 원하는 콘솔 창 크기 설정
-    COORD newSize = { 100, 50 }; // 가로 100, 세로 50
+    COORD newSize = { 120, 50 }; // 가로 120이하, 세로 9001이하
 
     // 새로운 창 크기 설정
     SMALL_RECT rect;
@@ -17,6 +17,13 @@ int main() {
     }
 
     printf("Console size has been changed to %dx%d\n", newSize.X, newSize.Y);
+
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+
+    GetConsoleScreenBufferInfo(hConsole, &bufferInfo);
+
+    printf("Console buffer size: %dx%d\n", bufferInfo.dwSize.X, bufferInfo.dwSize.Y);
 
     return 0;
 }
